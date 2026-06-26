@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/fav-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/fav-icon-16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
     <meta name="description"
         content="Join Gensar Consulting. Explore open tech roles in AI & ML, Cyber Security, and Full Stack Development. Shape the future with sandbox labs.">
     <meta name="keywords" content="careers, jobs, Gensar, AI engineer, cybersecurity, full stack developer, Hyderabad, remote jobs">
@@ -120,6 +121,7 @@
         }
     </style>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="js/schema.js"></script>
 </head>
 
 <body>
@@ -132,7 +134,7 @@
     <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="img/gensar_logo.png" alt="Gensar Logo">
+                <img loading="lazy" src="img/gensar_logo.png" alt="Gensar Logo">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -581,8 +583,9 @@
 
                     <div class="col-lg-7 cta-form-wrapper">
 
-                        <form id="careersForm" novalidate>
+                        <form id="careersForm" netlify name="careers-form" enctype="multipart/form-data">
 
+                            <input type="hidden" name="form-name" value="careers-form">
                             <!-- Row 1 -->
                             <div class="row">
                                 <div class="col-md-6">
@@ -775,7 +778,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-brand">
 
-                        <img src="img/Gensar Main Logo 2400x1800.jpg.jpeg" alt="Gensar Consulting" class="footer-logo">
+                        <img loading="lazy" src="img/Gensar Main Logo 2400x1800.jpg.jpeg" alt="Gensar Consulting" class="footer-logo">
 
                         <p class="footer-about">
                             Gensar Consulting empowers businesses with innovative IT solutions,
@@ -872,7 +875,8 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <form class="newsletter-form">
+                        <form class="newsletter-form" netlify name="newsletter">
+                            <input type="hidden" name="form-name" value="newsletter">
                             <input type="email" placeholder="Enter your email address">
                             <button type="submit">
                                 Subscribe
@@ -1667,6 +1671,14 @@
         </svg>
     </a>
     <script src="js/cms-loader.js"></script>
+<div id="formSuccessOverlay" class="success-overlay" style="display: none;">
+    <div class="success-modal">
+        <div class="success-icon">&#10003;</div>
+        <h2>Thank You!</h2>
+        <p>Your form has been submitted successfully. We will get back to you shortly.</p>
+        <button onclick="closeSuccessOverlay()" class="success-btn">Close</button>
+    </div>
+</div>
 </body>
 
 </html>

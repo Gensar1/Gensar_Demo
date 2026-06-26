@@ -268,3 +268,159 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
+
+/* Gallery Modal */
+function openGallery(title, specsEncoded, galleryEncoded) {
+  try {
+    var specs = JSON.parse(decodeURIComponent(specsEncoded));
+    var gallery = JSON.parse(decodeURIComponent(galleryEncoded));
+    document.getElementById('modalTitle').textContent = title;
+    var specLabels = {
+      category: 'Category', status: 'Status', duration: 'Duration', mode: 'Mode',
+      location: 'Location', experience: 'Experience', skills: 'Skills',
+      description: 'Description'
+    };
+    var specHtml = '';
+    Object.keys(specLabels).forEach(function(k) {
+      if (specs[k]) {
+        specHtml += '<div class="pm-spec"><span class="pm-spec-label">' + specLabels[k] + '</span><span class="pm-spec-val">' + specs[k] + '</span></div>';
+      }
+    });
+    document.getElementById('modalSpecs').innerHTML = specHtml;
+    var mediaHtml = '';
+    gallery.forEach(function(item, idx) {
+      var rawUrl = item.video || item.image || '';
+      var ytMatch = rawUrl.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)|youtu\.be\/)([\w\-]{11})/i);
+      var ytId = ytMatch ? ytMatch[1] : null;
+      var inner = '';
+      if (ytId) {
+        var autoplay = idx === 0 ? '&autoplay=1&mute=1' : '';
+        inner = '<iframe src="https://www.youtube.com/embed/' + ytId + '?rel=0&modestbranding=1' + autoplay + '" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
+      } else if (item.video && !item.image) {
+        var autoplay = idx === 0 ? 'autoplay muted' : '';
+        inner = '<video src="' + encodeURI(item.video) + '" controls loop playsinline ' + autoplay + '></video>';
+      } else if (item.image) {
+        inner = '<img src="' + encodeURI(item.image) + '" alt="" loading="lazy">';
+      }
+      if (inner) {
+        var capHtml = item.caption ? '<div class="pm-caption">' + item.caption + '</div>' : '';
+        mediaHtml += '<div class="pm-slide">' + inner + capHtml + '</div>';
+      }
+    });
+    document.getElementById('modalMainMedia').innerHTML = mediaHtml;
+    document.getElementById('projectModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  } catch(e) { console.error('Gallery error:', e); }
+}
+
+function closeGallery() {
+  document.getElementById('projectModal').style.display = 'none';
+  document.body.style.overflow = '';
+  document.getElementById('modalMainMedia').innerHTML = '';
+}
+
+document.getElementById('projectModal').addEventListener('click', function(e) {
+  if (e.target === this || e.target.classList.contains('pm-wrap') || e.target.classList.contains('pm-left')) {
+    closeGallery();
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  var m = document.getElementById('projectModal');
+  if (m && m.style.display === 'block' && e.key === 'Escape') closeGallery();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var forms = document.querySelectorAll('form[netlify]');
+    forms.forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var errors = form.querySelectorAll('.form-error');
+            errors.forEach(function (el) { el.remove(); });
+            var inputs = form.querySelectorAll('.input-error');
+            inputs.forEach(function (el) { el.classList.remove('input-error'); });
+            var valid = true;
+            var requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(function (field) {
+                if (!field.value.trim()) {
+                    valid = false;
+                    showError(field, 'This field is required');
+                }
+            });
+            var emailFields = form.querySelectorAll('input[type="email"]');
+            emailFields.forEach(function (field) {
+                if (field.value.trim() && !isValidEmail(field.value.trim())) {
+                    valid = false;
+                    showError(field, 'Please enter a valid email address');
+                }
+            });
+            if (valid) {
+                var submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+                }
+                var formData = new FormData(form);
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                }).then(function () {
+                    form.reset();
+                    showSuccessOverlay();
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit';
+                    }
+                }).catch(function () {
+                    showSuccessOverlay();
+                    form.reset();
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit';
+                    }
+                });
+            }
+        });
+    });
+    function showError(field, msg) {
+        field.classList.add('input-error');
+        var error = document.createElement('span');
+        error.className = 'form-error';
+        error.textContent = msg;
+        field.parentNode.appendChild(error);
+    }
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+});
+
+function showSuccessOverlay() {
+    var overlay = document.getElementById('formSuccessOverlay');
+    if (overlay) overlay.style.display = 'flex';
+}
+
+function closeSuccessOverlay() {
+    var overlay = document.getElementById('formSuccessOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+/* Page loader */
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var l = document.getElementById('loader');
+    if (l) l.classList.add('hide');
+  }, 1800);
+});
+
+/* Glass navbar on scroll */
+var navbar = document.querySelector('.custom-navbar');
+if (navbar) {
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+}

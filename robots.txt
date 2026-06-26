@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://gensardemo.netlify.app/sitemap.xml
+
+User-agent: GPTBot
+Disallow: /
