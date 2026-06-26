@@ -232,6 +232,7 @@
             }
         }
     </style>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
@@ -506,6 +507,9 @@
 
         </div>
     </section>
+
+    {% include 'cms/team-section.html' %}
+
     <!-- High-Impact Stats & Corporate Pillars Section -->
     <section class="pillars-stats-section scroll-animate-section">
         <div class="container anim-fade from-right">
@@ -995,7 +999,19 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
     <script src="script.js"></script>
+    <script src="js/cms-loader.js"></script>
 
     <div class="scroll-progress" id="scrollProgress">
         <svg viewBox="0 0 40 40">

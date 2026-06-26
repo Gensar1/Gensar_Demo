@@ -1,0 +1,79 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+media_folder: "img"
+public_folder: "/img"
+
+collections:
+  - name: "services"
+    label: "Services"
+    label_singular: "Service"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["IT", "Non-IT"] }
+      - { label: "Icon", name: "icon", widget: "string", hint: "Bootstrap icon class, e.g. bi-code-slash" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Features", name: "features", widget: "list", field: { label: "Feature", name: "feature", widget: "string" } }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+      - { label: "Enabled", name: "enabled", widget: "boolean", default: true }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+
+  - name: "team"
+    label: "Team"
+    label_singular: "Member"
+    folder: "content/team"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "name"]
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Designation", name: "designation", widget: "string" }
+      - { label: "Photo", name: "photo", widget: "image" }
+      - { label: "Bio", name: "bio", widget: "markdown", required: false }
+      - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+      - { label: "Email", name: "email", widget: "string", required: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+
+  - name: "jobs"
+    label: "Jobs"
+    label_singular: "Job"
+    folder: "content/jobs"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Type", name: "type", widget: "select", options: ["Full-time", "Part-time", "Internship"] }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Experience", name: "experience", widget: "string" }
+      - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
+      - { label: "Description", name: "description", widget: "markdown" }
+      - { label: "Apply Email", name: "apply_email", widget: "string" }
+      - { label: "Published", name: "published", widget: "boolean", default: true }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+
+  - name: "programs"
+    label: "Programs"
+    label_singular: "Program"
+    folder: "content/programs"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["AI-ML", "Data Science", "Data Analytics", "Cyber Security", "Full Stack"] }
+      - { label: "Duration", name: "duration", widget: "string" }
+      - { label: "Mode", name: "mode", widget: "select", options: ["Online", "Offline", "Hybrid"] }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Curriculum", name: "curriculum", widget: "markdown" }
+      - { label: "Tools & Technologies", name: "tools_technologies", widget: "list", field: { label: "Tool", name: "tool", widget: "string" } }
+      - { label: "Projects", name: "projects", widget: "list", field: { label: "Project", name: "project", widget: "string" }, required: false }
+      - { label: "Learning Outcomes", name: "learning_outcomes", widget: "list", field: { label: "Outcome", name: "outcome", widget: "string" }, required: false }
+      - { label: "Published", name: "published", widget: "boolean", default: true }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }

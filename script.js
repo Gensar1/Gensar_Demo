@@ -219,6 +219,22 @@ document.addEventListener("DOMContentLoaded", function () {
     animElements.forEach(el => {
         animObserver.observe(el);
     });
+
+    // Also watch for garchitects-style reveal classes
+    const revealElements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+    }
 });
 
 // ==========================================================================

@@ -293,6 +293,7 @@
 
         }
     </style>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
@@ -540,6 +541,9 @@
             </div>
         </div>
     </section>
+
+    {% include 'cms/services-section.html' %}
+
     <!-- Asymmetric Process / Methodology Layer -->
     <section class="process-flow-section scroll-animate-section bg-light">
         <div class="container anim-fade from-left">
@@ -883,7 +887,19 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
     <script src="script.js"></script>
+    <script src="js/cms-loader.js"></script>
 
     <div class="scroll-progress" id="scrollProgress">
         <svg viewBox="0 0 40 40">
