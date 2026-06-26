@@ -5504,7 +5504,9 @@ a.icon-box:hover {
     }
 
     .newsletter-form input {
-        height: 56px;
+        height: 64px;
+        padding: 14px 16px;
+        font-size: 16px;
     }
 
     .newsletter-form button {
@@ -7199,7 +7201,9 @@ img {
     }
 
     .newsletter-form input {
-        height: 56px;
+        height: 64px;
+        padding: 14px 16px;
+        font-size: 16px;
     }
 
     .newsletter-form button {
