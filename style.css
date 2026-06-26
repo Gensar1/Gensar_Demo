@@ -5503,6 +5503,10 @@ a.icon-box:hover {
         flex-direction: column;
     }
 
+    .newsletter-form input {
+        height: 56px;
+    }
+
     .newsletter-form button {
         height: 50px;
     }
@@ -7192,6 +7196,10 @@ img {
     /* Newsletter */
     .newsletter-form {
         flex-direction: column;
+    }
+
+    .newsletter-form input {
+        height: 56px;
     }
 
     .newsletter-form button {
