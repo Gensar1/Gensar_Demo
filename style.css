@@ -3677,6 +3677,13 @@ h2:not(.accordion-header) {
     border-radius: 2px;
 }
 
+@media (max-width: 767px) {
+    .divider {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 
 
 .text-gradient-purple {
