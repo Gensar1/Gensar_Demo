@@ -3677,17 +3677,6 @@ h2:not(.accordion-header) {
     border-radius: 2px;
 }
 
-.section-title-container .divider {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.faq-section .accordion,
-.faq-section .accordion-button,
-.faq-section .accordion-body {
-    text-align: left;
-}
-
 
 
 .text-gradient-purple {
